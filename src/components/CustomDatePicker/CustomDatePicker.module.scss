@@ -1,0 +1,360 @@
+.wrapper {
+    background-color: #fff;
+}
+
+.date-picker-container {
+    position: relative;
+    display: inline-flex;
+}
+
+.date-header-wrapper {
+    max-width: 23.6rem;
+}
+
+.checkbox-container {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    height: 1.6rem;
+    padding-left: 2.4rem;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    /* Hide the browser's default checkbox */
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    &:hover input ~ .checkmark {
+        background-color: rgba($color: rgb(204, 207, 213), $alpha: 0.3);
+    }
+
+    input:checked ~ .checkmark {
+        background-color: var(--blue-color);
+        border-color: transparent;
+    }
+
+    input:checked ~ .checkmark::after {
+        display: block;
+    }
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.6rem;
+    width: 1.6rem;
+    border: 1px solid;
+    border-color: var(--border-color);
+    border-radius: 0.4rem;
+    background-color: #fff;
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    &::after {
+        content: '';
+        display: none;
+        position: absolute;
+        left: 5px;
+        top: 1px;
+        width: 5px;
+        height: 10px;
+        border: solid #ffffff;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+}
+.roundtrip-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+    color: var(--gray-color-400);
+}
+
+.date-input-wrapper {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    padding: 1.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.8rem;
+    transition: border-color 0.3s;
+    cursor: pointer;
+
+    &:focus-within {
+        outline: none;
+        border-color: var(--blue-color);
+    }
+}
+
+.roundtrip-not-check {
+    pointer-events: none;
+    background-color: rgba($color: #242628, $alpha: 0.1);
+
+    .date-input {
+        background-color: transparent;
+        color: rgba($color: #242628, $alpha: 0.1);
+    }
+
+    .calendar-icon {
+        color: rgba($color: #242628, $alpha: 0.1);
+    }
+}
+
+.calendar-icon-wrapper {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-input {
+    flex: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &::placeholder {
+        color: var(--gray-color-100);
+        font-weight: 400;
+        opacity: 1;
+    }
+
+    &:not(:placeholder-shown) {
+        font-weight: 500;
+    }
+}
+
+/* date picker  */
+.date-picker {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    margin-top: 0.8rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(32, 80, 118, 0.122);
+    animation: fadeIn 0.4s ease;
+}
+
+.roundtrip-picker {
+    right: 0;
+    left: unset;
+}
+
+.months-container {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.month {
+    width: 28.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.6rem;
+}
+
+.month-header {
+    display: flex;
+    gap: 1.6rem;
+}
+
+.month-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0;
+}
+
+.month-nav-btn {
+    background: none;
+    border: none;
+    transition: background-color 0.2s;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba($color: #19c0ff, $alpha: 0.08);
+    }
+}
+
+.chevron-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Đảm bảo nút được đặt đúng vị trí */
+.month:first-child .month-title {
+    justify-content: flex-start;
+}
+
+.month:last-child .month-title {
+    justify-content: flex-end;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.weekday {
+    padding: 0.8rem;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--gray-color);
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 3.6rem;
+}
+
+.day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    font-weight: 600;
+    letter-spacing: 0.05;
+
+    &:hover:not(.other-month) {
+        background-color: rgba($color: #19c0ff, $alpha: 0.08);
+    }
+}
+
+.other-month {
+    color: var(--gray-color-100);
+    cursor: default;
+
+    &:hover {
+        background-color: transparent;
+    }
+}
+
+.today,
+.selected {
+    color: var(--blue-color);
+}
+
+.day:not(.other-month).weekend:not(.selected):not(.today) {
+    color: var(--red-color);
+}
+
+// /* Responsive */
+// @media (max-width: 768px) {
+//     .months-container {
+//         flex-direction: column;
+//         gap: 20px;
+//     }
+
+//     .date-picker {
+//         position: fixed;
+//         top: 50%;
+//         left: 50%;
+//         transform: translate(-50%, -50%);
+//         width: 90%;
+//         max-width: 400px;
+//         max-height: 90vh;
+//         overflow-y: auto;
+//     }
+
+//     .month-header {
+//         min-height: 35px;
+//     }
+
+//     .month-nav-btn {
+//         width: 25px;
+//         height: 25px;
+//         font-size: 14px;
+//     }
+
+//     .month:first-child .month-title {
+//         margin-left: 25px;
+//     }
+
+//     .month:last-child .month-title {
+//         margin-right: 25px;
+//     }
+
+//     .day {
+//         height: 32px;
+//         font-size: 13px;
+//     }
+// }
+
+// @media (max-width: 480px) {
+//     .date-picker {
+//         padding: 15px;
+//     }
+
+//     .month-title {
+//         font-size: 14px;
+//     }
+
+//     .day {
+//         height: 30px;
+//         font-size: 12px;
+//     }
+
+//     .month-header {
+//         min-height: 30px;
+//     }
+
+//     .weekday {
+//         font-size: 12px;
+//         padding: 3px;
+//     }
+
+//     .date-input {
+//         padding: 10px 12px 10px 35px;
+//         font-size: 14px;
+//     }
+
+//     .calendar-icon {
+//         left: 10px;
+//         width: 14px;
+//         height: 14px;
+//     }
+// }
