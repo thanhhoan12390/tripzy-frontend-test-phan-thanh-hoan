@@ -4,45 +4,75 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 
 import CustomDatePicker from '~/components/CustomDatePicker/CustomDatePicker';
-
-import styles from './page.module.scss';
 import LocationAutocomplete from '~/components/LocationAutocomplete/LocationAutocomplete';
+import InputNumber from '~/components/InputNumber/InputNumber';
+import { submitForm } from '~/lib/actions';
+import styles from './page.module.scss';
 
 const cx = classNames.bind(styles);
 
 export default function ExamplePage() {
-    const [selectedDate, setSelectedDate] = useState<Date>();
-    const [location, setLocation] = useState<string>();
+    const [fromDeparture, setFromDeparture] = useState<string>();
+    const [toDeparture, setToDeparture] = useState<string>();
+    const [selectedStartDate, setSelectedStartDate] = useState<Date>();
+    const [selectedRoundtripDate, setSelectedRoundtripDate] = useState<Date>();
+    const [isRoundtripChecked, setIisRoundtripChecked] = useState<boolean>(false);
+    const [passengerNo, setPassengerNo] = useState(1);
 
-    const handleDateSelect = (date: Date) => {
-        setSelectedDate(date);
-        console.log('Ngày đã chọn:', date.toLocaleDateString('en-US'));
-    };
+    // const handleSubmit = (formData: FormData) => {
+    //     const fromLocation = formData.get('from-location');
+    //     const toLocation = formData.get('to-location');
+    //     const startDate = formData.get('start-date');
+    //     const roundtripDate = formData.get('roundtrip-date');
+    //     const noOfPassenger = formData.get('number-passenger');
 
-    console.log(location);
+    //     console.log('form data: ', { fromLocation, toLocation, startDate, roundtripDate, noOfPassenger });
+    // };
+
+    console.log(selectedStartDate, selectedRoundtripDate, fromDeparture, toDeparture, passengerNo);
 
     return (
-        <div className={cx('wrapper')}>
-            {/* <CustomDatePicker inputFormName="start-date" onDateSelect={handleDateSelect} selectedDate={selectedDate} />
-            <CustomDatePicker
-                roundtrip
-                inputFormName="end-date"
-                onDateSelect={handleDateSelect}
-                selectedDate={selectedDate}
-            /> */}
-            <LocationAutocomplete
-                heading="FROM"
-                value={location}
-                onChange={setLocation}
-                locationInputName="from-location"
-            />
+        <form action={submitForm}>
+            <div className={cx('wrapper')}>
+                <LocationAutocomplete
+                    heading="FROM"
+                    value={fromDeparture}
+                    onChange={setFromDeparture}
+                    locationInputName="from-location"
+                />
 
-            {/* <LocationAutocomplete
-                heading="TO"
-                value={location}
-                onChange={setLocation}
-                locationInputName="from-location"
-            /> */}
-        </div>
+                <LocationAutocomplete
+                    heading="TO"
+                    value={toDeparture}
+                    onChange={setToDeparture}
+                    locationInputName="to-location"
+                />
+
+                <CustomDatePicker
+                    inputFormName="start-date"
+                    onDateSelect={setSelectedStartDate}
+                    selectedDate={selectedStartDate}
+                />
+
+                <CustomDatePicker
+                    roundtrip
+                    isRoundtripChecked={isRoundtripChecked}
+                    onRoundtripChange={setIisRoundtripChecked}
+                    inputFormName="roundtrip-date"
+                    onDateSelect={setSelectedRoundtripDate}
+                    selectedDate={selectedRoundtripDate}
+                />
+
+                <InputNumber
+                    value={passengerNo}
+                    min={1}
+                    step={1}
+                    onChange={setPassengerNo}
+                    inputNumberName="number-passenger"
+                />
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
     );
 }

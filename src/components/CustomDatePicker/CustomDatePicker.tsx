@@ -13,14 +13,22 @@ interface CustomDatePickerProps {
     selectedDate?: Date;
     roundtrip?: boolean;
     inputFormName: string;
+    isRoundtripChecked?: boolean;
+    onRoundtripChange?: (v: boolean) => void;
 }
 
-function CustomDatePicker({ onDateSelect, selectedDate, roundtrip = false, inputFormName }: CustomDatePickerProps) {
+function CustomDatePicker({
+    onDateSelect,
+    selectedDate,
+    roundtrip = false,
+    inputFormName,
+    isRoundtripChecked,
+    onRoundtripChange,
+}: CustomDatePickerProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [today] = useState(new Date());
     const datePickerRef = useRef<HTMLDivElement>(null);
-    const [isChecked, setIsChecked] = useState(false);
 
     // Tính toán tháng thứ hai từ currentDate
     const secondMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
@@ -75,8 +83,8 @@ function CustomDatePicker({ onDateSelect, selectedDate, roundtrip = false, input
                         <input
                             type="checkbox"
                             name="roundtrip-checkbox"
-                            checked={isChecked}
-                            onChange={() => setIsChecked(!isChecked)}
+                            checked={isRoundtripChecked}
+                            onChange={(e) => onRoundtripChange?.(e.target.checked)}
                         />
                         <span className={cx('checkmark')}></span>
                     </label>
@@ -87,25 +95,26 @@ function CustomDatePicker({ onDateSelect, selectedDate, roundtrip = false, input
                 <div className={cx('date-header-wrapper')}>
                     <label
                         className={cx('date-input-wrapper', {
-                            ['roundtrip-not-check']: !isChecked && roundtrip,
+                            ['roundtrip-not-check']: !isRoundtripChecked && roundtrip,
                         })}
                     >
                         <div className={cx('calendar-icon-wrapper')}>
                             <CalendarIcon className={cx('calendar-icon')} height="1.5rem" width="1.5rem" />
                         </div>
                         <input
+                            id="date-picker"
                             type="text"
                             className={cx('date-input')}
                             placeholder="DD / MM / YYYY  00:00"
                             value={selectedDate ? formatDate(selectedDate) : ''}
                             readOnly
                             onClick={() => setIsOpen(!isOpen)}
-                            name={inputFormName}
+                            name={roundtrip ? (isRoundtripChecked ? inputFormName : '') : inputFormName}
                         />
                     </label>
                 </div>
 
-                {isOpen && (roundtrip ? isChecked : true) && (
+                {isOpen && (roundtrip ? isRoundtripChecked : true) && (
                     <div
                         className={cx('date-picker', {
                             ['roundtrip-picker']: roundtrip,
