@@ -36,9 +36,14 @@ function CustomDatePicker({ onDateSelect, selectedDate, roundtrip = false, input
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const handleDateSelect = (date: Date) => {
+    const handleDateSelect = (date: Date, isOtherMonth: boolean = false) => {
         onDateSelect(date);
         setIsOpen(false);
+
+        // Nếu click vào ngày của tháng khác, cập nhật currentDate để nhảy về tháng đó
+        if (isOtherMonth) {
+            setCurrentDate(new Date(date.getFullYear(), date.getMonth(), 1));
+        }
     };
 
     // Điều hướng chung cho cả hai tháng
@@ -63,21 +68,23 @@ function CustomDatePicker({ onDateSelect, selectedDate, roundtrip = false, input
 
     return (
         <div className={cx('wrapper')}>
+            {roundtrip && (
+                <div className={cx('checkbox-wrapper')}>
+                    <label className={cx('checkbox-container')}>
+                        <span className={cx('roundtrip-text')}>ROUND TRIP?</span>
+                        <input
+                            type="checkbox"
+                            name="roundtrip-checkbox"
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                        />
+                        <span className={cx('checkmark')}></span>
+                    </label>
+                </div>
+            )}
+
             <div className={cx('date-picker-container')} ref={datePickerRef}>
                 <div className={cx('date-header-wrapper')}>
-                    {roundtrip && (
-                        <label className={cx('checkbox-container')}>
-                            <span className={cx('roundtrip-text')}>ROUND TRIP?</span>
-                            <input
-                                type="checkbox"
-                                name="roundtrip-checkbox"
-                                checked={isChecked}
-                                onChange={() => setIsChecked(!isChecked)}
-                            />
-                            <span className={cx('checkmark')}></span>
-                        </label>
-                    )}
-
                     <label
                         className={cx('date-input-wrapper', {
                             ['roundtrip-not-check']: !isChecked && roundtrip,
@@ -133,7 +140,7 @@ interface MonthCalendarProps {
     date: Date;
     selectedDate?: Date;
     today: Date;
-    onDateSelect: (date: Date) => void;
+    onDateSelect: (date: Date, isOtherMonth: boolean) => void;
     showPrevButton?: boolean;
     showNextButton?: boolean;
     onPrevMonth?: () => void;
@@ -192,10 +199,8 @@ export function MonthCalendar({
     };
 
     const handleDayClick = (day: Date) => {
-        // Chỉ cho phép click chọn nếu là ngày của tháng hiện tại
-        if (isCurrentMonth(day)) {
-            onDateSelect(day);
-        }
+        const isOtherMonth = !isCurrentMonth(day);
+        onDateSelect(day, isOtherMonth);
     };
 
     return (
@@ -236,9 +241,9 @@ export function MonthCalendar({
                         key={index}
                         className={cx('day', {
                             ['other-month']: !isCurrentMonth(day),
-                            ['selected']: isSelected(day),
-                            ['today']: isToday(day) && !isSelected(selectedDate ?? day),
-                            ['weekend']: isWeekend(day),
+                            ['selected']: isSelected(day) && isCurrentMonth(day),
+                            ['today']: isToday(day) && !isSelected(selectedDate ?? day) && isCurrentMonth(day),
+                            ['weekend']: isWeekend(day) && isCurrentMonth(day),
                         })}
                         onClick={() => handleDayClick(day)}
                     >
