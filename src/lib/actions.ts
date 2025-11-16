@@ -3,16 +3,24 @@
 import { redirect } from 'next/navigation';
 
 export async function submitForm(formData: FormData) {
-    const fromLocation = formData.get('from-location');
-    const toLocation = formData.get('to-location');
-    const startDate = formData.get('start-date');
-    const roundtripDate = formData.get('roundtrip-date');
-    const noOfPassenger = formData.get('number-passenger');
+    const fromLocation = formData.get('from-location') as string;
+    const toLocation = formData.get('to-location') as string;
+    const startDate = formData.get('start-date') as string;
+    const roundtripDate = formData.get('roundtrip-date') as string;
+    const noOfPassenger = formData.get('number-passenger') as string;
+    const mode = (formData.get('mode') as string) || 'bus';
 
-    console.log('form data: ', { fromLocation, toLocation, startDate, roundtripDate, noOfPassenger });
+    const searchParams = new URLSearchParams({
+        mode: mode,
+        from: fromLocation,
+        to: toLocation,
+        dep: startDate,
+        pax: noOfPassenger,
+    });
 
-    // redirect('/search');
+    if (roundtripDate) {
+        searchParams.set('ret', roundtripDate);
+    }
 
-    // Update data
-    // Revalidate cache
+    redirect(`/search?${searchParams.toString()}`);
 }

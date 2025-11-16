@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { Nunito_Sans } from 'next/font/google';
 import '@ant-design/v5-patch-for-react-19';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import 'antd/dist/reset.css';
+// import 'antd/dist/reset.css';
 
+import DefaultLayout from '~/components/layout/DefaultLayout';
 import '~/styles/globals.scss';
 
 const nunitoSans = Nunito_Sans({
@@ -24,7 +25,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${nunitoSans.variable}`}>
-                <AntdRegistry>{children}</AntdRegistry>
+                <AntdRegistry>
+                    <DefaultLayout>{children}</DefaultLayout>
+                </AntdRegistry>
             </body>
         </html>
     );

@@ -158,3 +158,27 @@ export const UserIcon = ({
         />
     </svg>
 );
+
+export const Logo = ({
+    width = '2.9rem',
+    height = '3rem',
+    className,
+}: {
+    width?: string;
+    height?: string;
+    className?: string;
+}) => (
+    <svg
+        className={className}
+        width={width}
+        height={height}
+        fill="currentColor"
+        viewBox="0 0 29 30"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M11.5 30V20.0833L2.91667 25.0417L0 20L8.58333 15L0 10.0417L2.91667 5L11.5 9.95833V0H17.3333V9.95833L25.9167 5L28.8333 10.0417L20.25 15L28.8333 20L25.9167 25.0417L17.3333 20.0833V30H11.5Z"
+            fill="#19C0FF"
+        />
+    </svg>
+);

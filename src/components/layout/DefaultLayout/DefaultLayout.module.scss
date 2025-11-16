@@ -1,0 +1,57 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    // Không thêm block-size hoặc height vì sẽ làm lỗi popover
+    min-block-size: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    width: 100%;
+    max-width: 112.4rem;
+    height: 5.4rem;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+}
+
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    span {
+        font-size: 2.4rem;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: 0;
+        color: var(--blue-color);
+    }
+}
+
+.logo {
+    height: 2.8rem;
+    width: 2.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+    flex: 1;
+}
+
+.banner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45vh;
+    background: linear-gradient(180deg, #f5f8ff, #dbf5ff);
+    z-index: -1;
+    pointer-events: none;
+}

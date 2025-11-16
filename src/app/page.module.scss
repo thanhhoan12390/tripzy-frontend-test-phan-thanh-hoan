@@ -1,6 +1,32 @@
 .wrapper {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    max-width: 112.4rem;
+    margin-inline: auto;
+    flex-direction: column;
+}
+
+.home-title {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-inline: auto;
+    margin-top: 6.4rem;
+    text-align: center;
+}
+
+.heading {
+    margin: 0;
+    font-size: 3.2rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: 0.89px;
+    color: #121216;
+}
+
+.heading-text {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+    color: #767689;
 }
