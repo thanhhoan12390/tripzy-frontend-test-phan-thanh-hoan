@@ -146,7 +146,7 @@ function CustomDatePicker({
                 )}
             </div>
 
-            {true && (
+            {false && (
                 <div className={cx('validate-message')}>
                     <span>
                         Error message Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cupiditate est

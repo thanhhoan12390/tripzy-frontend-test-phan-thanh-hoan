@@ -17,7 +17,7 @@ function DefaultLayout({ children }: DefaultLayoutProps) {
                 <header className={cx('header')}>
                     <div className={cx('logo-group')}>
                         <div className={cx('logo')}>
-                            <Logo width="2.4rem" height="2.4rem" />
+                            <Logo width="2.2rem" height="2.2rem" />
                         </div>
                         <span>Tripzy</span>
                     </div>

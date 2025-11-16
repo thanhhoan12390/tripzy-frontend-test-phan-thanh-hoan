@@ -7,6 +7,7 @@ import CustomDatePicker from '~/components/ui/CustomDatePicker/CustomDatePicker'
 import LocationAutocomplete from '~/components/ui/LocationAutocomplete/LocationAutocomplete';
 import InputNumber from '~/components/ui/InputNumber/InputNumber';
 import { submitForm } from '~/lib/actions';
+import { SearchIcon, TransferIcon } from '~/components/ui/Icons';
 import styles from './BusFormContent.module.scss';
 
 const cx = classNames.bind(styles);
@@ -23,38 +24,43 @@ function BusFormContent() {
 
     return (
         <form action={submitForm}>
-            {/* <div style={{ height: '40rem' }}></div> */}
-            <div className={cx('wrapper')}>
-                <LocationAutocomplete
-                    heading="FROM"
-                    value={fromDeparture}
-                    onChange={setFromDeparture}
-                    locationInputName="from-location"
-                />
+            <div className={cx('inputs-wrapper')}>
+                <div className={cx('locations-group')}>
+                    <LocationAutocomplete
+                        heading="FROM"
+                        value={fromDeparture}
+                        onChange={setFromDeparture}
+                        locationInputName="from-location"
+                    />
+                    <div className={cx('icon-wrapper')}>
+                        <TransferIcon />
+                    </div>
+                    <LocationAutocomplete
+                        heading="TO"
+                        value={toDeparture}
+                        onChange={setToDeparture}
+                        locationInputName="to-location"
+                    />
+                </div>
 
-                <LocationAutocomplete
-                    heading="TO"
-                    value={toDeparture}
-                    onChange={setToDeparture}
-                    locationInputName="to-location"
-                />
+                <div className={cx('date-group')}>
+                    <CustomDatePicker
+                        inputFormName="start-date"
+                        onDateSelect={setSelectedStartDate}
+                        selectedDate={selectedStartDate}
+                        pickerId="departure-date"
+                    />
 
-                <CustomDatePicker
-                    inputFormName="start-date"
-                    onDateSelect={setSelectedStartDate}
-                    selectedDate={selectedStartDate}
-                    pickerId="departure-date"
-                />
-
-                <CustomDatePicker
-                    roundtrip
-                    isRoundtripChecked={isRoundtripChecked}
-                    onRoundtripChange={setIisRoundtripChecked}
-                    inputFormName="roundtrip-date"
-                    onDateSelect={setSelectedRoundtripDate}
-                    selectedDate={selectedRoundtripDate}
-                    pickerId="roundtrip-date"
-                />
+                    <CustomDatePicker
+                        roundtrip
+                        isRoundtripChecked={isRoundtripChecked}
+                        onRoundtripChange={setIisRoundtripChecked}
+                        inputFormName="roundtrip-date"
+                        onDateSelect={setSelectedRoundtripDate}
+                        selectedDate={selectedRoundtripDate}
+                        pickerId="roundtrip-date"
+                    />
+                </div>
 
                 <InputNumber
                     value={passengerNo}
@@ -65,9 +71,12 @@ function BusFormContent() {
                 />
             </div>
 
-            <button style={{ marginTop: '4.8rem', marginLeft: '8rem' }} type="submit">
-                Submit
-            </button>
+            <div className={cx('button-container')}>
+                <button className={cx('submit-btn')} type="submit">
+                    <SearchIcon />
+                    Search
+                </button>
+            </div>
         </form>
     );
 }

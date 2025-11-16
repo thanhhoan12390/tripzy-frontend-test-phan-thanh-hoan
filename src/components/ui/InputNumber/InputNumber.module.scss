@@ -1,7 +1,7 @@
 .wrapper {
     display: inline-flex;
     flex-direction: column;
-    max-width: 14.9rem;
+    max-width: 14rem;
     font-family: var(--font-nunito-sans);
 }
 
@@ -31,7 +31,7 @@
 .input-group {
     display: flex;
     gap: 0.8rem;
-    padding: 1.6rem;
+    padding: 1.2rem;
     color: var(--text-color);
     cursor: text;
 }
@@ -88,8 +88,7 @@
 }
 
 .btn-icon-wrapper {
-    height: 1.6rem;
-    width: 1.6rem;
+    width: 1.2rem;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,0 +1,17 @@
+.wrapper {
+    max-width: 112.4rem;
+    margin-inline: auto;
+}
+
+.search-content {
+    min-height: 52rem;
+    margin-top: 3.2rem;
+    padding: 6.4rem;
+    border-radius: 1.6rem;
+    box-shadow: 0 4px 12px 0px rgba(32, 80, 118, 0.12);
+    background-color: #fff;
+}
+
+.search-data-field:not(:first-child) {
+    margin-top: 2.8rem;
+}

@@ -79,16 +79,16 @@ function LocationAutocomplete({
                 onChange={handleChange}
                 value={value}
                 filterOption={false}
-                popupMatchSelectWidth={331}
-                listItemHeight={51.2}
-                listHeight={51.2 * 6 + 8}
+                popupMatchSelectWidth={308}
+                listItemHeight={46}
+                listHeight={46 * 6 + 8}
                 virtual={false}
                 getPopupContainer={(triggerNode) => triggerNode.parentElement!}
             >
                 <Input placeholder={placeholder} prefix={<BusIcon />} name={locationInputName} />
             </AutoComplete>
 
-            {true && (
+            {false && (
                 <div className={cx('validate-message')}>
                     <span>
                         Error message Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cupiditate est

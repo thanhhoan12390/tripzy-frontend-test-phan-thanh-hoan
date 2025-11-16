@@ -1,8 +1,10 @@
 .wrapper {
+    flex: 1;
     max-width: 23.6rem;
-    background-color: #fff;
+    min-width: 20rem;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .heading {
@@ -103,11 +105,12 @@
     display: flex;
     gap: 0.8rem;
     align-items: center;
-    padding: 1.6rem;
+    padding: 1.2rem;
     border: 1px solid var(--border-color);
     border-radius: 0.8rem;
     transition: border-color 0.3s;
     cursor: pointer;
+    background-color: #fff;
 
     &:focus-within {
         outline: none;
@@ -176,7 +179,10 @@
 }
 
 .validate-message {
+    position: absolute;
+    top: 100%;
     margin-top: 0.4rem;
+    // display: none;
     span {
         display: -webkit-box !important;
         -webkit-line-clamp: 2;
