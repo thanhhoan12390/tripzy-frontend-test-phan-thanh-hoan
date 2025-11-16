@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { AutoComplete, Input } from 'antd';
 
-import { BusIcon } from '~/components/Icons';
+import { BusIcon } from '~/components/ui/Icons';
 import { Location, locations } from '~/data/locations';
 import styles from './LocationAutocomplete.module.scss';
 
@@ -40,7 +40,6 @@ function LocationAutocomplete({
         locations.map((location) => ({
             value: location.english_name,
             label: LabelElement(location.short_code, location.english_name, location.code_state),
-
             data: location,
         })),
     );
@@ -88,6 +87,16 @@ function LocationAutocomplete({
             >
                 <Input placeholder={placeholder} prefix={<BusIcon />} name={locationInputName} />
             </AutoComplete>
+
+            {true && (
+                <div className={cx('validate-message')}>
+                    <span>
+                        Error message Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cupiditate est
+                        distinctio voluptates ducimus dolor. Ea amet, eius iusto similique sapiente molestias hic
+                        obcaecati? In illum nulla ad esse fugiat?
+                    </span>
+                </div>
+            )}
         </div>
     );
 }

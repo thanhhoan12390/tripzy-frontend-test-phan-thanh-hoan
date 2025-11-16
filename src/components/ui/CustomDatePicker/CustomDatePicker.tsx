@@ -3,7 +3,7 @@
 import classNames from 'classnames/bind';
 import { useState, useEffect, useRef } from 'react';
 
-import { CalendarIcon, ChevronLeft, ChevronRight } from '~/components/Icons';
+import { CalendarIcon, ChevronLeft, ChevronRight } from '~/components/ui/Icons';
 import styles from './CustomDatePicker.module.scss';
 
 const cx = classNames.bind(styles);
@@ -15,6 +15,7 @@ interface CustomDatePickerProps {
     inputFormName: string;
     isRoundtripChecked?: boolean;
     onRoundtripChange?: (v: boolean) => void;
+    pickerId: string;
 }
 
 function CustomDatePicker({
@@ -24,6 +25,7 @@ function CustomDatePicker({
     inputFormName,
     isRoundtripChecked,
     onRoundtripChange,
+    pickerId,
 }: CustomDatePickerProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -34,8 +36,8 @@ function CustomDatePicker({
     const secondMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
 
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (datePickerRef.current && !datePickerRef.current.contains(e.target as Node)) {
                 setIsOpen(false);
             }
         };
@@ -76,7 +78,7 @@ function CustomDatePicker({
 
     return (
         <div className={cx('wrapper')}>
-            {roundtrip && (
+            {roundtrip ? (
                 <div className={cx('checkbox-wrapper')}>
                     <label className={cx('checkbox-container')}>
                         <span className={cx('roundtrip-text')}>ROUND TRIP?</span>
@@ -89,6 +91,8 @@ function CustomDatePicker({
                         <span className={cx('checkmark')}></span>
                     </label>
                 </div>
+            ) : (
+                <h4 className={cx('heading')}>DEPARTURE DATE</h4>
             )}
 
             <div className={cx('date-picker-container')} ref={datePickerRef}>
@@ -102,7 +106,7 @@ function CustomDatePicker({
                             <CalendarIcon className={cx('calendar-icon')} height="1.5rem" width="1.5rem" />
                         </div>
                         <input
-                            id="date-picker"
+                            id={pickerId}
                             type="text"
                             className={cx('date-input')}
                             placeholder="DD / MM / YYYY  00:00"
@@ -141,6 +145,16 @@ function CustomDatePicker({
                     </div>
                 )}
             </div>
+
+            {true && (
+                <div className={cx('validate-message')}>
+                    <span>
+                        Error message Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cupiditate est
+                        distinctio voluptates ducimus dolor. Ea amet, eius iusto similique sapiente molestias hic
+                        obcaecati? In illum nulla ad esse fugiat?
+                    </span>
+                </div>
+            )}
         </div>
     );
 }

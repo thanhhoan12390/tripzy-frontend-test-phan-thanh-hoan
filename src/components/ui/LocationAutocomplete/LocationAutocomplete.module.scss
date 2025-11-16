@@ -1,8 +1,7 @@
 // input wrapper
 :global(:where(.css-dev-only-do-not-override-kk2c0l).ant-select-single.ant-select) {
     display: block;
-    height: unset;
-    max-width: 20.8rem;
+    height: 100%;
 }
 
 // input wrapper
@@ -27,6 +26,16 @@
     &:focus-within {
         outline: none;
         border-color: var(--blue-color);
+    }
+}
+
+:global(
+        :where(.css-dev-only-do-not-override-kk2c0l).ant-select-single
+            .ant-select-selector
+            .ant-select-selection-search-input
+    ) {
+    &::before {
+        line-height: 2rem !important;
     }
 }
 
@@ -69,6 +78,8 @@
     box-shadow: 0px 4px 12px 0px rgba(32, 80, 118, 0.12);
     backdrop-filter: blur(2rem);
     background-color: #fff;
+    inset: calc(100%) auto auto auto !important;
+    margin-top: 0.4rem;
 }
 
 :global(.rc-virtual-list-holder-inner) {
@@ -81,17 +92,18 @@
 }
 
 .wrapper {
-    display: inline-flex;
+    max-width: 20.8rem;
+    display: flex;
     flex-direction: column;
 }
 
 .location-heading {
     font-size: 1.2rem;
     font-weight: 500;
-    line-height: 1.3;
+    line-height: 1.6rem;
     letter-spacing: 0;
-    color: var(--gray-color-400);
     margin-bottom: 0.8rem;
+    color: var(--gray-color-400);
 }
 
 .location-item-wrapper {
@@ -113,4 +125,21 @@
     font-size: 1.2rem;
     line-height: 1.3;
     color: var(--gray-color-400);
+}
+
+.validate-message {
+    margin-top: 0.4rem;
+    span {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: block-axis;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 1.6rem;
+        letter-spacing: 0;
+        color: var(--red-color);
+    }
 }

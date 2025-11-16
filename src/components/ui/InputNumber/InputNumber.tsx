@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 
-import { UserIcon, ChevronUp, ChevronDown } from '~/components/Icons';
+import { UserIcon, ChevronUp, ChevronDown } from '~/components/ui/Icons';
 import styles from './InputNumber.module.scss';
 
 const cx = classNames.bind(styles);

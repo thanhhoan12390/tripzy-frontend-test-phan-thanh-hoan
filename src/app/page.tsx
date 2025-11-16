@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 
-import CustomDatePicker from '~/components/CustomDatePicker/CustomDatePicker';
-import LocationAutocomplete from '~/components/LocationAutocomplete/LocationAutocomplete';
-import InputNumber from '~/components/InputNumber/InputNumber';
+import CustomDatePicker from '~/components/ui/CustomDatePicker/CustomDatePicker';
+import LocationAutocomplete from '~/components/ui/LocationAutocomplete/LocationAutocomplete';
+import InputNumber from '~/components/ui/InputNumber/InputNumber';
 import { submitForm } from '~/lib/actions';
 import styles from './page.module.scss';
 
@@ -29,10 +29,11 @@ export default function ExamplePage() {
     //     console.log('form data: ', { fromLocation, toLocation, startDate, roundtripDate, noOfPassenger });
     // };
 
-    console.log(selectedStartDate, selectedRoundtripDate, fromDeparture, toDeparture, passengerNo);
+    // console.log(selectedStartDate, selectedRoundtripDate, fromDeparture, toDeparture, passengerNo);
 
     return (
         <form action={submitForm}>
+            {/* <div style={{ height: '40rem' }}></div> */}
             <div className={cx('wrapper')}>
                 <LocationAutocomplete
                     heading="FROM"
@@ -52,6 +53,7 @@ export default function ExamplePage() {
                     inputFormName="start-date"
                     onDateSelect={setSelectedStartDate}
                     selectedDate={selectedStartDate}
+                    pickerId="departure-date"
                 />
 
                 <CustomDatePicker
@@ -61,6 +63,7 @@ export default function ExamplePage() {
                     inputFormName="roundtrip-date"
                     onDateSelect={setSelectedRoundtripDate}
                     selectedDate={selectedRoundtripDate}
+                    pickerId="roundtrip-date"
                 />
 
                 <InputNumber
@@ -72,7 +75,9 @@ export default function ExamplePage() {
                 />
             </div>
 
-            <button type="submit">Submit</button>
+            <button style={{ marginTop: '4.8rem', marginLeft: '8rem' }} type="submit">
+                Submit
+            </button>
         </form>
     );
 }
