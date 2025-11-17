@@ -19,11 +19,27 @@ function BusFormContent() {
     const [selectedRoundtripDate, setSelectedRoundtripDate] = useState<Date>();
     const [isRoundtripChecked, setIisRoundtripChecked] = useState<boolean>(false);
     const [passengerNo, setPassengerNo] = useState(1);
+    const [errors, setErrors] = useState<{
+        from?: string[];
+        to?: string[];
+        startDate?: string[];
+        passenger?: string[];
+        roundtripDate?: string[];
+    }>({});
 
-    // async function handleSubmit(formData: FormData) {}
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault(); //  ngăn refresh page
+
+        const formData = new FormData(e.currentTarget);
+        const result = await submitForm(formData);
+
+        if (!result?.success) {
+            setErrors(result?.errors ?? {});
+        }
+    }
 
     return (
-        <form action={submitForm}>
+        <form onSubmit={handleSubmit}>
             <div className={cx('inputs-wrapper')}>
                 <div className={cx('locations-group')}>
                     <LocationAutocomplete
@@ -31,6 +47,13 @@ function BusFormContent() {
                         value={fromDeparture}
                         onChange={setFromDeparture}
                         locationInputName="from-location"
+                        validateError={errors.from ? errors.from[0] : ''}
+                        onValidateErrFocus={() => {
+                            setErrors((pre) => ({
+                                ...pre,
+                                from: [],
+                            }));
+                        }}
                     />
                     <div className={cx('icon-wrapper')}>
                         <TransferIcon />
@@ -40,6 +63,13 @@ function BusFormContent() {
                         value={toDeparture}
                         onChange={setToDeparture}
                         locationInputName="to-location"
+                        validateError={errors.to ? errors.to[0] : ''}
+                        onValidateErrFocus={() => {
+                            setErrors((pre) => ({
+                                ...pre,
+                                to: [],
+                            }));
+                        }}
                     />
                 </div>
 
@@ -48,6 +78,13 @@ function BusFormContent() {
                         inputFormName="start-date"
                         onDateSelect={setSelectedStartDate}
                         selectedDate={selectedStartDate}
+                        validateError={errors.startDate ? errors.startDate[0] : ''}
+                        onValidateErrFocus={() => {
+                            setErrors((pre) => ({
+                                ...pre,
+                                startDate: [],
+                            }));
+                        }}
                         pickerId="departure-date"
                     />
 
@@ -58,6 +95,13 @@ function BusFormContent() {
                         inputFormName="roundtrip-date"
                         onDateSelect={setSelectedRoundtripDate}
                         selectedDate={selectedRoundtripDate}
+                        validateError={errors.roundtripDate ? errors.roundtripDate[0] : ''}
+                        onValidateErrFocus={() => {
+                            setErrors((pre) => ({
+                                ...pre,
+                                roundtripDate: [],
+                            }));
+                        }}
                         pickerId="roundtrip-date"
                     />
                 </div>

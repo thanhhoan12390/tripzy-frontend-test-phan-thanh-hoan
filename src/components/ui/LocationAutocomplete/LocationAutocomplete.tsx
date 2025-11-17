@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import { useState, memo } from 'react';
 import { AutoComplete, Input } from 'antd';
 
 import { BusIcon } from '~/components/ui/Icons';
@@ -16,6 +16,8 @@ interface LocationAutocompleteProps {
     onChange?: (value: string) => void;
     locationInputName: string;
     heading: string;
+    validateError: string;
+    onValidateErrFocus: () => void;
 }
 
 function LocationAutocomplete({
@@ -24,6 +26,8 @@ function LocationAutocomplete({
     onChange,
     locationInputName,
     heading,
+    validateError,
+    onValidateErrFocus,
 }: LocationAutocompleteProps) {
     const LabelElement = (shortCode: string, englishName: string, codeState: string) => {
         return (
@@ -85,20 +89,21 @@ function LocationAutocomplete({
                 virtual={false}
                 getPopupContainer={(triggerNode) => triggerNode.parentElement!}
             >
-                <Input placeholder={placeholder} prefix={<BusIcon />} name={locationInputName} />
+                <Input
+                    onFocus={onValidateErrFocus}
+                    placeholder={placeholder}
+                    prefix={<BusIcon />}
+                    name={locationInputName}
+                />
             </AutoComplete>
 
-            {false && (
+            {validateError && (
                 <div className={cx('validate-message')}>
-                    <span>
-                        Error message Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cupiditate est
-                        distinctio voluptates ducimus dolor. Ea amet, eius iusto similique sapiente molestias hic
-                        obcaecati? In illum nulla ad esse fugiat?
-                    </span>
+                    <span>{validateError}</span>
                 </div>
             )}
         </div>
     );
 }
 
-export default LocationAutocomplete;
+export default memo(LocationAutocomplete);

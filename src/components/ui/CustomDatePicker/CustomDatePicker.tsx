@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 
 import { CalendarIcon, ChevronLeft, ChevronRight } from '~/components/ui/Icons';
 import styles from './CustomDatePicker.module.scss';
@@ -15,6 +15,8 @@ interface CustomDatePickerProps {
     inputFormName: string;
     isRoundtripChecked?: boolean;
     onRoundtripChange?: (v: boolean) => void;
+    validateError: string;
+    onValidateErrFocus: () => void;
     pickerId: string;
 }
 
@@ -25,6 +27,8 @@ function CustomDatePicker({
     inputFormName,
     isRoundtripChecked,
     onRoundtripChange,
+    validateError,
+    onValidateErrFocus,
     pickerId,
 }: CustomDatePickerProps) {
     const [isOpen, setIsOpen] = useState(false);
@@ -114,6 +118,7 @@ function CustomDatePicker({
                             readOnly
                             onClick={() => setIsOpen(!isOpen)}
                             name={roundtrip ? (isRoundtripChecked ? inputFormName : '') : inputFormName}
+                            onFocus={onValidateErrFocus}
                         />
                     </label>
                 </div>
@@ -146,13 +151,9 @@ function CustomDatePicker({
                 )}
             </div>
 
-            {false && (
+            {validateError && (
                 <div className={cx('validate-message')}>
-                    <span>
-                        Error message Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cupiditate est
-                        distinctio voluptates ducimus dolor. Ea amet, eius iusto similique sapiente molestias hic
-                        obcaecati? In illum nulla ad esse fugiat?
-                    </span>
+                    <span>{validateError}</span>
                 </div>
             )}
         </div>
@@ -278,4 +279,4 @@ export function MonthCalendar({
     );
 }
 
-export default CustomDatePicker;
+export default memo(CustomDatePicker);
