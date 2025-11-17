@@ -2,6 +2,19 @@
 
 import { redirect } from 'next/navigation';
 import { busFormSchema } from '~/lib/schemas';
+import type { ZodError } from 'zod';
+
+function formatZodErrors(error: ZodError) {
+    const fieldErrors: Record<string, string[]> = {};
+
+    for (const issue of error.issues) {
+        const field = issue.path[0] as string;
+        fieldErrors[field] ??= [];
+        fieldErrors[field].push(issue.message);
+    }
+
+    return fieldErrors;
+}
 
 export async function submitForm(formData: FormData) {
     const raw = {
@@ -15,20 +28,9 @@ export async function submitForm(formData: FormData) {
     const result = busFormSchema.safeParse(raw);
 
     if (!result.success) {
-        // Sử dụng đúng cú pháp của ZodError
-        const fieldErrors: Record<string, string[]> = {};
-
-        for (const issue of result.error.issues) {
-            const field = issue.path[0] as string;
-            if (!fieldErrors[field]) {
-                fieldErrors[field] = [];
-            }
-            fieldErrors[field].push(issue.message);
-        }
-
         return {
             success: false,
-            errors: fieldErrors,
+            errors: formatZodErrors(result.error),
         };
     }
 

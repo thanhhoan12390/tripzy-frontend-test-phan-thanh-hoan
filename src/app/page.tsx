@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 
-import BusFormContent from '~/components/features/BusFormContent/BusFormContent';
+import BusContentForm from '~/components/features/BusContentForm/BusContentForm';
 import { BusIcon, PlaneIcon, HotelIcon } from '~/components/ui/Icons';
 import Tabs from '~/components/ui/Tabs/Tabs';
 import styles from './Homepage.module.scss';
@@ -41,7 +41,7 @@ function Homepage() {
                         iconColor: '#5664E1',
                     },
                 ]}
-                tabsContent={[<BusFormContent key="bus-form-content" />, null, null]}
+                tabsContent={[<BusContentForm key="bus-form-content" />, null, null]}
             />
         </div>
     );

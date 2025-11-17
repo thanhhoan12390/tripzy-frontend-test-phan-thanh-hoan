@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tripzy Frontend Test
 
-## Getting Started
+[![Vercel Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://tripzyfrontendtestphanthanhhoan.vercel.app/)
 
-First, run the development server:
+## 🚀 Quick Start
+
+### Prerequisites
+
+-   **Node.js:** version 18.17.0 or higher (recommended 20.x)
+-   **Package Manager:** npm
+
+### Installation & Development
 
 ```bash
+# Clone the repository
+git clone https://github.com/thanhhoan12390/tripzy-frontend-test-phan-thanh-hoan.git
+cd tripzy-frontend-test-phan-thanh-hoan
+
+# Install dependencies (using npm)
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Architecture & Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Core Technologies
 
-## Learn More
+-   **Next.js 15:** React framework with App Router
+-   **React 19:** latest React with new features
+-   **TypeScript:** type safety and better developer experience
+-   **Turbopack:** high-performance bundler for faster builds
 
-To learn more about Next.js, take a look at the following resources:
+### UI & Styling
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   **AntD:** React UI library,
+-   **Sass:** CSS preprocessor for advanced styling
+-   **normalize.css:** modern CSS reset
+-   **classnames:** utility for conditional className handling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Development & Quality
 
-## Deploy on Vercel
+-   **ESLint:** code linting with latest config
+-   **TypeScript:** static type checking
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Validation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   **Zod:** schema validation for runtime type safety
+
+## 🎯 Key Technical Decisions
+
+-   **Next.js 15 with Turbopack:** chosen for exceptional development performance and production-ready features like SSR, SSG, and API routes.
+-   **React 19:** utilizes the latest React features including actions, directives, and improved performance.
+-   **Ant Design:** implement smart Autocomplete with Ant Design's AutoComplete component for real-time search suggestions.
+-   **Implemented custom components:** (e.g., CustomDatePicker, InputNumber, Tabs) to ensure consistent styling and improve reusability across the UI.
+-   **Server Action:** handle form validation and server-side redirect, simplifying client logic and enhancing overall reliability.
+-   **Zod:** provides robust runtime validation complementing TypeScript's compile-time checking.
+
+## 🔗 Live Demo
+
+Check out the live application deployed on Vercel: [https://tripzyfrontendtestphanthanhhoan.vercel.app](https://tripzyfrontendtestphanthanhhoan.vercel.app)

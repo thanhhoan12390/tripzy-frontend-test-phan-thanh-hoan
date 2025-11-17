@@ -8,11 +8,11 @@ import LocationAutocomplete from '~/components/ui/LocationAutocomplete/LocationA
 import InputNumber from '~/components/ui/InputNumber/InputNumber';
 import { submitForm } from '~/lib/actions';
 import { SearchIcon, TransferIcon } from '~/components/ui/Icons';
-import styles from './BusFormContent.module.scss';
+import styles from './BusContentForm.module.scss';
 
 const cx = classNames.bind(styles);
 
-function BusFormContent() {
+function BusContentForm() {
     const [fromDeparture, setFromDeparture] = useState<string>();
     const [toDeparture, setToDeparture] = useState<string>();
     const [selectedStartDate, setSelectedStartDate] = useState<Date>();
@@ -125,4 +125,4 @@ function BusFormContent() {
     );
 }
 
-export default BusFormContent;
+export default BusContentForm;
