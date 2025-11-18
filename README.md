@@ -2,14 +2,14 @@
 
 [![Vercel Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://tripzyfrontendtestphanthanhhoan.vercel.app/)
 
-<figure>
-  <img src="./src/demo/tripzy-desktop.PNG" width="400">
+<figure style="text-align:center;">
+  <img src="./src/demo/tripzy-desktop.PNG" width="680">
   <figcaption><em>Figure 1: Desktop screen</em></figcaption>
 </figure>
 
-<figure>
-  <img src="./src/demo/tripzy-mobile-1.PNG" width="151">
-  <img src="./src/demo/tripzy-mobile-2.PNG" width="150">
+<figure style="text-align:center;">
+  <img src="./src/demo/tripzy-mobile-1.PNG" width="242">
+  <img src="./src/demo/tripzy-mobile-2.PNG" width="240">
   <figcaption><em>Figure 2: Mobile screen</em></figcaption>
 </figure>
 
