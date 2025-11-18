@@ -55,3 +55,16 @@
     z-index: -1;
     pointer-events: none;
 }
+
+@media (max-width: 37.5rem) {
+    .header {
+        padding-inline: 2.4rem;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 67.5rem) {
+    .header {
+        padding-inline: 2.4rem;
+    }
+}

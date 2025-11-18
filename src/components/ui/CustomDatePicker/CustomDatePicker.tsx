@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import { useState, useEffect, useRef, memo } from 'react';
+import { useState, useEffect, useRef, memo, useLayoutEffect, useCallback } from 'react';
 
 import { CalendarIcon, ChevronLeft, ChevronRight } from '~/components/ui/Icons';
 import styles from './CustomDatePicker.module.scss';
@@ -34,7 +34,9 @@ function CustomDatePicker({
     const [isOpen, setIsOpen] = useState(false);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [today] = useState(new Date());
+    const [style, setStyle] = useState<React.CSSProperties>({});
     const datePickerRef = useRef<HTMLDivElement>(null);
+    const popoverRef = useRef<HTMLDivElement>(null);
 
     // Tính toán tháng thứ hai từ currentDate
     const secondMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
@@ -60,7 +62,6 @@ function CustomDatePicker({
         }
     };
 
-    // Điều hướng chung cho cả hai tháng
     const navigateMonth = (direction: 'prev' | 'next') => {
         setCurrentDate((prev) => {
             const newDate = new Date(prev);
@@ -79,6 +80,93 @@ function CustomDatePicker({
         const year = date.getFullYear();
         return `${day} / ${month} / ${year}  00:00`;
     };
+
+    const updatePosition = useCallback(() => {
+        if (!isOpen) return;
+        if (!datePickerRef.current || !popoverRef.current) return;
+
+        const datePickerRect = datePickerRef.current.getBoundingClientRect();
+
+        const totalPopoverWidth =
+            popoverRef.current.clientWidth +
+            parseFloat(getComputedStyle(popoverRef.current).marginLeft) +
+            parseFloat(getComputedStyle(popoverRef.current).marginRight);
+
+        const totalPopoverHeight =
+            popoverRef.current.clientHeight +
+            parseFloat(getComputedStyle(popoverRef.current).marginTop) +
+            parseFloat(getComputedStyle(popoverRef.current).marginBottom);
+
+        const spaceRight = window.innerWidth - datePickerRect.left;
+        const spaceLeft = datePickerRect.right;
+        const spaceBottom = window.innerHeight - datePickerRect.bottom;
+
+        let top = 'unset';
+        let left = 'unset';
+        let right = 'unset';
+        let bottom = 'unset';
+
+        if (spaceRight > totalPopoverWidth && spaceBottom >= totalPopoverHeight + 4) {
+            top = 'calc(100% + 4px)';
+            left = '0';
+
+            if (roundtrip && spaceLeft >= totalPopoverWidth) {
+                top = 'calc(100% + 4px)';
+                right = '0';
+                left = 'unset';
+            }
+        } else if (spaceRight <= totalPopoverWidth && spaceBottom >= totalPopoverHeight + 4) {
+            top = 'calc(100% + 4px)';
+            right = '0';
+        } else if (spaceRight > totalPopoverWidth && spaceBottom < totalPopoverHeight + 4) {
+            bottom = 'calc(100% + 4px)';
+            left = '0';
+
+            if (roundtrip && spaceLeft >= totalPopoverWidth) {
+                bottom = 'calc(100% + 4px)';
+                right = '0';
+                left = 'unset';
+            }
+        } else if (spaceRight <= totalPopoverWidth && spaceBottom < totalPopoverHeight + 4) {
+            bottom = 'calc(100% + 4px)';
+            right = '0';
+        } else {
+            top = 'calc(100% + 4px)';
+            left = '0';
+
+            if (roundtrip) {
+                top = 'calc(100% + 4px)';
+                right = '0';
+            }
+        }
+
+        setStyle({
+            top,
+            right,
+            bottom,
+            left,
+        });
+    }, [isOpen, roundtrip]);
+
+    useLayoutEffect(() => {
+        if (isOpen) {
+            updatePosition();
+        }
+    }, [isOpen, updatePosition]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const handleWindowChange = () => updatePosition();
+
+        window.addEventListener('resize', handleWindowChange);
+        window.addEventListener('scroll', handleWindowChange, true);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowChange);
+            window.removeEventListener('scroll', handleWindowChange, true);
+        };
+    }, [isOpen, updatePosition]);
 
     return (
         <div className={cx('wrapper')}>
@@ -124,11 +212,7 @@ function CustomDatePicker({
                 </div>
 
                 {isOpen && (roundtrip ? isRoundtripChecked : true) && (
-                    <div
-                        className={cx('date-picker', {
-                            ['roundtrip-picker']: roundtrip,
-                        })}
-                    >
+                    <div ref={popoverRef} style={style} className={cx('date-picker')}>
                         <div className={cx('months-container')}>
                             <MonthCalendar
                                 date={currentDate}
@@ -137,6 +221,9 @@ function CustomDatePicker({
                                 onDateSelect={handleDateSelect}
                                 showPrevButton={true}
                                 onPrevMonth={() => navigateMonth('prev')}
+                                showNextButton={true}
+                                onNextMonth={() => navigateMonth('next')}
+                                className={cx('prev-month')}
                             />
                             <MonthCalendar
                                 date={secondMonthDate}
@@ -145,6 +232,7 @@ function CustomDatePicker({
                                 onDateSelect={handleDateSelect}
                                 showNextButton={true}
                                 onNextMonth={() => navigateMonth('next')}
+                                className={cx('next-month')}
                             />
                         </div>
                     </div>
@@ -169,6 +257,7 @@ interface MonthCalendarProps {
     showNextButton?: boolean;
     onPrevMonth?: () => void;
     onNextMonth?: () => void;
+    className?: string;
 }
 
 export function MonthCalendar({
@@ -180,6 +269,7 @@ export function MonthCalendar({
     showNextButton = false,
     onPrevMonth,
     onNextMonth,
+    className,
 }: MonthCalendarProps) {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -228,10 +318,10 @@ export function MonthCalendar({
     };
 
     return (
-        <div className={cx('month')}>
+        <div className={cx('month', className)}>
             <div className={cx('month-header')}>
                 {showPrevButton && (
-                    <button className={cx('month-nav-btn')} onClick={onPrevMonth} type="button">
+                    <button className={cx('month-nav-btn', 'prev-btn')} onClick={onPrevMonth} type="button">
                         <div className={cx('chevron-icon')}>
                             <ChevronLeft height="1rem" />
                         </div>
@@ -243,7 +333,7 @@ export function MonthCalendar({
                 </div>
 
                 {showNextButton && (
-                    <button className={cx('month-nav-btn')} onClick={onNextMonth} type="button">
+                    <button className={cx('month-nav-btn', 'next-btn')} onClick={onNextMonth} type="button">
                         <div className={cx('chevron-icon')}>
                             <ChevronRight height="1rem" />
                         </div>

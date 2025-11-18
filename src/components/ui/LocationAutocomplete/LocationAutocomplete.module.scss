@@ -67,8 +67,6 @@
     box-shadow: 0px 4px 12px 0px rgba(32, 80, 118, 0.12);
     backdrop-filter: blur(2rem);
     background-color: #fff;
-    inset: calc(100%) auto auto auto !important;
-    margin-top: 0.4rem;
 }
 
 :global(.rc-virtual-list-holder-inner) {
@@ -81,11 +79,12 @@
 }
 
 .wrapper {
-    flex: 1;
-    min-width: 19rem;
+    width: 100%;
+    min-width: 18.4rem;
     display: flex;
     flex-direction: column;
     position: relative;
+    background-color: #fff;
 }
 
 .location-heading {
@@ -138,17 +137,8 @@
     }
 }
 
-// @media (max-width: 768px) {
-//     .wrapper {
-//         max-width: unset;
-//     }
-
-//     :global(.ant-select .ant-select-dropdown) {
-//         box-shadow: 0px 4px 12px 0px rgba(32, 80, 118, 0.12);
-//         backdrop-filter: blur(2rem);
-//         background-color: #fff;
-//         inset: calc(100%) auto auto auto !important;
-//         margin-top: 0.4rem;
-//         width: 100% !important;
-//     }
-// }
+@media (max-width: 48rem) {
+    :global(.ant-select .ant-select-dropdown) {
+        width: 100% !important;
+    }
+}

@@ -32,7 +32,9 @@ function Tabs({ tabsTitleData, tabsContent }: TabsProps) {
                                 : { backgroundColor: 'transparent' }
                         }
                         key={index}
-                        className={cx('tab-title')}
+                        className={cx('tab-title', {
+                            ['active-tab']: tabIndex === index,
+                        })}
                         onClick={() => setTabIndex(index)}
                     >
                         <div

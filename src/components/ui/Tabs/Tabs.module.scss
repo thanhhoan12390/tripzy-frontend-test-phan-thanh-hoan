@@ -18,15 +18,17 @@
     display: flex;
     gap: 0.8rem;
     align-items: center;
+    height: 100%;
     padding: 0.8rem 1.2rem;
     border-radius: 0.8rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.4s;
 }
 
 .title-icon-wrapper {
     height: 3.6rem;
     width: 3.6rem;
+    min-width: 3.6rem;
     border-radius: 100rem;
     display: flex;
     justify-content: center;
@@ -60,4 +62,25 @@
     font-weight: 400;
     letter-spacing: 0;
     color: #767689;
+}
+
+@media (max-width: 37.5rem) {
+    .tabs-title-container {
+        gap: 1.2rem;
+    }
+    .active-tab {
+        .title-text {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    .tab-title:not(.active-tab) {
+        flex: 0;
+        padding-inline: 0;
+
+        .title-text {
+            display: none;
+        }
+    }
 }

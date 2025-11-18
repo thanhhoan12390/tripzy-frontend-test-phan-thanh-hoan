@@ -1,16 +1,12 @@
 .wrapper {
-    display: flex;
     max-width: 112.4rem;
     margin-inline: auto;
-    flex-direction: column;
 }
 
 .home-title {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 0.4rem;
     margin-inline: auto;
     margin-top: 5.6rem;
+    padding-inline: 2.4rem;
     text-align: center;
 }
 
@@ -24,6 +20,7 @@
 }
 
 .heading-text {
+    margin-top: 0.4rem;
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 1.2;

@@ -106,13 +106,15 @@ function BusContentForm() {
                     />
                 </div>
 
-                <InputNumber
-                    value={passengerNo}
-                    min={1}
-                    step={1}
-                    onChange={setPassengerNo}
-                    inputNumberName="number-passenger"
-                />
+                <div className={cx('number-input-wrapper')}>
+                    <InputNumber
+                        value={passengerNo}
+                        min={1}
+                        step={1}
+                        onChange={setPassengerNo}
+                        inputNumberName="number-passenger"
+                    />
+                </div>
             </div>
 
             <div className={cx('button-container')}>

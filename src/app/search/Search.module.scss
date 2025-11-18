@@ -15,3 +15,9 @@
 .search-data-field:not(:first-child) {
     margin-top: 2.8rem;
 }
+
+@media (max-width: 37.5rem) {
+    .search-content {
+        padding: 3.2rem;
+    }
+}

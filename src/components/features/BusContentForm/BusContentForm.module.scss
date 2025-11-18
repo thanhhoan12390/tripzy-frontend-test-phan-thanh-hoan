@@ -1,11 +1,13 @@
 .inputs-wrapper {
     display: flex;
     align-items: flex-start;
-    gap: 1.6rem;
+    column-gap: 1.6rem;
+    row-gap: 4rem;
     flex-wrap: wrap;
 }
 
 .locations-group {
+    flex: 1;
     display: flex;
     align-items: flex-end;
     gap: 0.8rem;
@@ -13,6 +15,7 @@
 
 .icon-wrapper {
     width: 4.2rem;
+    min-width: 4.2rem;
     height: 4.2rem;
     display: flex;
     justify-content: center;
@@ -26,6 +29,12 @@
     flex: 1;
     display: flex;
     gap: 0.8rem;
+}
+
+.number-input-wrapper {
+    display: flex;
+    justify-content: center;
+    max-width: 13.2rem;
 }
 
 .button-container {
@@ -53,4 +62,43 @@
     line-height: 1.4;
     letter-spacing: 0.1;
     text-transform: uppercase;
+}
+
+@media (max-width: 48rem) {
+    .inputs-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .number-input-wrapper {
+        max-width: unset;
+    }
+}
+
+@media (max-width: 37.5rem) {
+    .inputs-wrapper {
+        grid-template-rows: repeat(3, auto);
+    }
+
+    .locations-group {
+        flex-direction: column;
+        row-gap: 4rem;
+    }
+
+    .icon-wrapper {
+        display: none;
+    }
+
+    .date-group {
+        flex-direction: column;
+        row-gap: 4rem;
+    }
+
+    .button-container {
+        margin-top: 5.6rem;
+        margin-bottom: 1.2rem;
+    }
 }

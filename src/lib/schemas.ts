@@ -12,11 +12,6 @@ export const busFormSchema = z
         roundtripDate: z.string().optional(),
         passenger: z.coerce.number().min(1, 'At least 1 passenger is required.'),
     })
-    // 1. FROM ≠ TO
-    .refine((data) => !data.from || !data.to || data.from.trim().toLowerCase() !== data.to.trim().toLowerCase(), {
-        message: 'Departure and destination cannot be the same.',
-        path: ['to'],
-    })
     .refine(
         (data) => {
             const start = parseCustomDate(data.startDate);
@@ -40,7 +35,7 @@ export const busFormSchema = z
             path: ['roundtripDate'],
         },
     )
-    // 4. returnDate ≥ startDate — only run if previous checks passed
+    // returnDate ≥ startDate — only run if previous checks passed
     .refine(
         (data) => {
             if (!data.roundtripDate) return true;

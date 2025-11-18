@@ -1,7 +1,8 @@
 .wrapper {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
-    max-width: 13.2rem;
+    width: 100%;
+    min-width: 12rem;
     font-family: var(--font-nunito-sans);
 }
 
@@ -29,6 +30,7 @@
 }
 
 .input-group {
+    width: 100%;
     display: flex;
     gap: 0.8rem;
     padding: 1.2rem;
@@ -72,6 +74,8 @@
 
 .btn {
     flex: 1;
+    display: flex;
+    justify-content: center;
     border: none;
     background: transparent;
     padding: 0.4rem 0.8rem;
@@ -92,4 +96,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 48rem) {
+    .controls {
+        min-width: 4.8rem;
+    }
 }
