@@ -1,7 +1,7 @@
 export function parseCustomDate(str: string): Date | null {
     if (!str) return null;
 
-    const cleaned = str.replace(/\s+/g, ' ').trim(); // "17 / 11 / 2025 00:00"
+    const cleaned = str.replace(/\s+/g, ' ').trim();
 
     // Tách phần ngày và phần thời gian (có thể có nhiều khoảng trắng)
     const parts = cleaned.split(/\s+/);
@@ -13,7 +13,6 @@ export function parseCustomDate(str: string): Date | null {
 
     const [day, month, year, time] = filteredParts;
 
-    // Xử lý phần thời gian
     const [hours, minutes] = time.split(':').map((s) => parseInt(s.trim(), 10));
 
     const dayNum = parseInt(day, 10);

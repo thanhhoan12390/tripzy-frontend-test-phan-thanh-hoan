@@ -38,7 +38,6 @@ function CustomDatePicker({
     const datePickerRef = useRef<HTMLDivElement>(null);
     const popoverRef = useRef<HTMLDivElement>(null);
 
-    // Tính toán tháng thứ hai từ currentDate
     const secondMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
 
     useEffect(() => {
