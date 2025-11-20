@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import { busFormSchema } from '~/lib/schemas';
 import type { ZodError } from 'zod';
+import { parseCustomDate } from '~/utility/parseCustomDate';
 
 function formatZodErrors(error: ZodError) {
     const fieldErrors: Record<string, string[]> = {};
@@ -36,16 +37,27 @@ export async function submitForm(formData: FormData) {
 
     const mode = (formData.get('mode') as string) || 'bus';
 
+    const convertedStartDate = parseCustomDate(raw.startDate);
+
     const searchParams = new URLSearchParams({
         mode: mode,
         from: raw.from,
         to: raw.to,
-        dep: raw.startDate,
+        dep: `${convertedStartDate?.getDate()}-${
+            (convertedStartDate?.getMonth() ?? 0) + 1
+        }-${convertedStartDate?.getFullYear()}`,
         pax: raw.passenger as string,
     });
 
     if (raw.roundtripDate) {
-        searchParams.set('ret', raw.roundtripDate);
+        const convertedRoundtripDate = parseCustomDate(raw.roundtripDate);
+
+        searchParams.set(
+            'ret',
+            `${convertedRoundtripDate?.getDate()}-${
+                (convertedRoundtripDate?.getMonth() ?? 0) + 1
+            }-${convertedRoundtripDate?.getFullYear()}`,
+        );
     }
 
     redirect(`/search?${searchParams.toString()}`);

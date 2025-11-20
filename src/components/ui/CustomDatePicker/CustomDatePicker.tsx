@@ -238,7 +238,7 @@ function CustomDatePicker({
                 )}
             </div>
 
-            {validateError && (
+            {validateError && (roundtrip ? isRoundtripChecked : true) && (
                 <div className={cx('validate-message')}>
                     <span>{validateError}</span>
                 </div>
