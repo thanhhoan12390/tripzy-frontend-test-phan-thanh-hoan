@@ -8,6 +8,8 @@ import LocationAutocomplete from '~/components/ui/LocationAutocomplete/LocationA
 import InputNumber from '~/components/ui/InputNumber/InputNumber';
 import { submitForm } from '~/lib/actions';
 import { SearchIcon, TransferIcon } from '~/components/ui/Icons';
+import { formatZodErrors } from '~/utility/formatZodErrors';
+import { busFormSchema } from '~/lib/schemas';
 import styles from './BusContentForm.module.scss';
 
 const cx = classNames.bind(styles);
@@ -31,11 +33,20 @@ function BusContentForm() {
         e.preventDefault(); //  ngăn refresh page
 
         const formData = new FormData(e.currentTarget);
-        const result = await submitForm(formData);
 
-        if (!result?.success) {
-            setErrors(result?.errors ?? {});
-        }
+        const raw = {
+            from: formData.get('from-location')?.toString() ?? '',
+            to: formData.get('to-location')?.toString() ?? '',
+            startDate: formData.get('start-date')?.toString() ?? '',
+            roundtripDate: formData.get('roundtrip-date')?.toString() ?? '',
+            passenger: formData.get('number-passenger'),
+        };
+
+        const result = busFormSchema.safeParse(raw);
+
+        if (!result.success) {
+            setErrors(formatZodErrors(result.error));
+        } else await submitForm(formData);
     }
 
     return (

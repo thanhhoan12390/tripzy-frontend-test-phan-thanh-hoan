@@ -69,7 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 -   **React 19:** utilizes the latest React features including actions, directives, and improved performance.
 -   **Ant Design:** implement smart Autocomplete with Ant Design's AutoComplete component for real-time search suggestions.
 -   **Implemented custom components:** (e.g., CustomDatePicker, InputNumber, Tabs) to ensure consistent styling and improve reusability across the UI.
--   **Server Action:** handle form validation and server-side redirect, simplifying client logic and enhancing overall reliability.
+-   **Server Action:** handle server-side redirect, simplifying client logic and enhancing overall reliability.
 -   **Zod:** provides robust runtime validation complementing TypeScript's compile-time checking.
 
 ## 🔗 Live Demo
